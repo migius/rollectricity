@@ -1,0 +1,36 @@
+.map {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+}
+
+.hex {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    background: #dfdfdf;
+    -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+  }
+
+.costo {
+    padding: 4px;
+}
+
+.consumi {
+    background: #b7cd6c;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 50% 100%, 50% 100%, 0% 50%);
+    height: 40px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+.consumi svg {
+    padding: 8px 2px;
+}
