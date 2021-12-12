@@ -1,0 +1,14 @@
+
+.testata-burocrazie {
+}
+
+.re-box-burocrazie {
+    padding: 5px;
+    font-size: small;
+    margin-bottom: 3px;
+}
+
+.re-box-burocrazie div:not(:first-child) div:not(:first-child):not(:last-child) {
+    background-color: var(--main-fancy-color);
+    border: 1px solid white;
+}

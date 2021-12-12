@@ -1,3 +1,7 @@
+.re-box-map {
+    max-width: 710px;
+}
+
 .map {
     display: flex;
     flex-wrap: wrap;
@@ -6,13 +10,19 @@
     align-items: center;
     flex-direction: row;
     position: relative;
+    /*bordo delle tile:*/
+    filter: drop-shadow(-1px 0px 1px black) 
+            drop-shadow(1px 1px 1px black) 
+            drop-shadow(0px 1px 1px black) 
+            drop-shadow(1px -1px 1px black);
+    min-height: 680px;
 }
 
 .hex {
-    height: 100px;
+    height: 104px;
     width: 100px;
     position: absolute;
-    background: #dfdfdf;
+    background: #fff;
     -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
   }
@@ -22,7 +32,7 @@
 }
 
 .consumi {
-    background: #b7cd6c;
+    background: var(--main-fancy-color);
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 50% 100%, 50% 100%, 0% 50%);
     height: 40px;
     display: flex;
@@ -33,4 +43,19 @@
 }
 .consumi svg {
     padding: 8px 2px;
+    /* Corregge un bug del reset bootstrap sulle icone*/
+    box-sizing: content-box;
 }
+
+.hex.costruita {
+    background-color: greenyellow;
+}
+
+.hex.costruita.produttiva {
+    background-color: rgb(77, 114, 22);
+}
+
+.hex.smantellata {
+    background-color: darkgray;
+}
+

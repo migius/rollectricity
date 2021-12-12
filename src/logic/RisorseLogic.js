@@ -1,8 +1,8 @@
 
 import { Risorsa } from "../entities/Risorsa";
 
-export const GeneraRisorse = (risorse, dadi) => {
-    if(typeof risorse === 'undefined' || risorse.length == 0){
+export const GeneraRisorse = (dadi,risorse) => {
+    if(typeof risorse === 'undefined' || risorse.length === 0){
 
         return InizializzaRisorse();
     }else{
@@ -31,11 +31,11 @@ export const GeneraRisorse = (risorse, dadi) => {
             for (let risId = indiceRisorsa-1; risId < newRisorse.length; risId++) {
                 console.log(risId);
                 const ris = newRisorse[risId];
-                if(ris.isEsaurita){
+                if(ris.IsEsaurita){
                     continue;
                 }
                 else {
-                    console.log("set " + gruppiDadi[index-1] + " su " + index + " per il " + ris.nome)
+                    console.log("set " + gruppiDadi[index-1] + " su " + index + " per il " + ris.Nome)
                     ris.SetDadi(gruppiDadi[index-1], index);
                     risId++;
                     risId++;
@@ -67,3 +67,33 @@ export const InizializzaRisorse = () => {
         new Risorsa(5, "Deuterio", 8), 
     ]
 }
+
+Array.prototype.risorseSufficienti = function(regione) {
+    let RisorseUsabili = new Array(this.length);
+
+    //faccio un array con il numero di disponibili per ogni Id
+    this.forEach(risorsa => {
+        RisorseUsabili[risorsa.Id] = risorsa.Usabili;
+    });
+
+    let risorseSufficienti = true;
+    regione.Consumi.forEach(risorsaDaUsare => {
+        RisorseUsabili[risorsaDaUsare]--;
+        if(RisorseUsabili[risorsaDaUsare]<0) {
+            risorseSufficienti = false;
+        }
+    });
+
+    return risorseSufficienti;
+};
+
+Array.prototype.consumaRisorse = function(regione) {
+    regione.Consumi.forEach(risorsaDaUsare => {
+        this.forEach(risorsa => {
+            if(risorsa.Id === risorsaDaUsare){
+                risorsa.UsaRisorsa();
+            }
+        });
+    });
+};
+

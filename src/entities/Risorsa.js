@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCertificate, faFire, faOilCan, faRadiationAlt, faTrashAlt, faTint } from '@fortawesome/free-solid-svg-icons';
+
 export class Risorsa {
     constructor(id, nome, disponibili) {
       this.Id = id;
@@ -28,6 +31,14 @@ export class Risorsa {
     get IsDisponibile() {
         return this.Usate < this.Estratte;
     }
+    
+    get Usabili() {
+        return this.Estratte - this.Usate;
+    }
+
+    get Icona() {
+        return IconaFromId(this.Id);
+    }
 
     // Method
     SetDadi(numero, valore) {
@@ -42,6 +53,29 @@ export class Risorsa {
         }
     }
 
+    UsaRisorsa() {
+        this.Usate++;
+    }
+
 }
 
+
+export function IconaFromId(id){
+    switch(id){
+      case 0:
+        return <FontAwesomeIcon icon={faCertificate} />;
+      case 1:
+        return <FontAwesomeIcon icon={faOilCan} />;
+      case 2:
+        return <FontAwesomeIcon icon={faFire} />;
+      case 3:
+        return <FontAwesomeIcon icon={faTrashAlt} />;
+      case 4:
+        return <FontAwesomeIcon icon={faRadiationAlt} />;
+      case 5:
+        return <FontAwesomeIcon icon={faTint} />;
+      default:
+        return <p>???</p>
+    }
+  }
   

@@ -1,0 +1,17 @@
+
+.risorsa:not(:last-child) {
+    border-bottom: 1px solid black;
+}
+
+.risorsa {
+    padding: 3px;
+}
+
+.r-name {
+    text-align: right;
+    padding-right: 2px;
+}
+
+.r-stats svg {
+    padding: 1px;
+}

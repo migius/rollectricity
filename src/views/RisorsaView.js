@@ -1,33 +1,24 @@
+import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCertificate, faFire, faOilCan, faRadiationAlt, faTrashAlt, faTint } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
-import TiraDadiView from './TiraDadiView';
+import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
+
+import './RisorsaView.css';
 
 function RisorsaView(props) {
-  
-    return (<div>
-            <h2>{props.risorsa.Nome}, disponibili: {props.risorsa.Disponibili}, estratte: {props.risorsa.Estratte}, usate: {props.risorsa.Usate}</h2>
-            {props.risorsa.Dadi.map((object, i) => <div key={i}>{object}</div>)}
-        </div>);
+
+  return (<div className="risorsa">
+
+            <div className="r-name">{props.risorsa.Nome} {props.risorsa.Icona} </div>
+            <div className="r-stats">
+              {Array(props.risorsa.Usate).fill().map((object, i) => <FontAwesomeIcon key={"u_" + i} icon={faCheckCircle} />)}
+              {Array(props.risorsa.Estratte-props.risorsa.Usate).fill().map((object, i) => <FontAwesomeIcon key={"e_" + i} icon={faCircle} />)}
+              {Array(props.risorsa.Disponibili-props.risorsa.Estratte).fill().map((object, i) => <FontAwesomeIcon key={"d_" + i} icon={faCircleRegular} />)}
+            </div>
+            {/* {props.risorsa.Dadi.map((object, i) => <div key={i}><DadoView valore={object} /></div>) */}
+            
+          </div>);
   }
   
 export default RisorsaView;
-
-
-export function IconaFromId(id){
-  switch(id){
-    case 0:
-      return <FontAwesomeIcon icon={faCertificate} />;
-    case 1:
-      return <FontAwesomeIcon icon={faOilCan} />;
-    case 2:
-      return <FontAwesomeIcon icon={faFire} />;
-    case 3:
-      return <FontAwesomeIcon icon={faTrashAlt} />;
-    case 4:
-      return <FontAwesomeIcon icon={faRadiationAlt} />;
-    case 5:
-      return <FontAwesomeIcon icon={faTint} />;
-  }
-}

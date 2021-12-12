@@ -7,7 +7,9 @@ export class Regione {
         this.Consumi = consumi;
         this.Entrate = entrate;
         this.IsCostruita = false;
+        this.IsProduttiva = false;
         this.IsSmantellata = false;
+        this.IsDaSmantellare = false;
     }
 
     IsLimitrofo(regione){
@@ -16,8 +18,8 @@ export class Regione {
 
     get Style() {
         return  {
-            top: 700 - 100*this.Y, 
-            left: 80*this.X
+            top: 560 - 100*this.Y, 
+            left: 80*this.X - 60
         };
     }
 

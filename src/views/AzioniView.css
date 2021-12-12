@@ -1,0 +1,12 @@
+.azioni {
+    padding: 3px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.azioni button {
+    margin: 2px;
+}

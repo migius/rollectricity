@@ -1,7 +1,7 @@
 import { Regione } from "../entities/Regione";
 
-export const InizializzaListaRegioni = () => {
-    console.log("InizializzaListaRegioni");
+export const InizializzaRegioni = () => {
+    console.log("InizializzaRegioni");
 
     return [   
         new Regione(1,3.5,12,[2,2],10),
