@@ -18,6 +18,8 @@ import { InizializzaBurocrazie } from './logic/BurocraziaLogic';
 import { InizializzaRegioni } from './logic/RegioneLogic';
 
 
+/*eslint "react-hooks/exhaustive-deps": "off"*/ 
+
 function App() {
   //STATE
   const [dadi, setDadi] = useState([]);
@@ -27,6 +29,13 @@ function App() {
   const [azioni, setAzioni] = useState([]);
   const [partita, setPartita] = useState([]);
   
+
+
+  //INITS
+  //inizializzazioni più complesse, così evito chiamate ad ogni re-render
+  useEffect(() => {
+    NuovaPartita();
+ },[]);
   
   //ACTIONS
   const NuovaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
@@ -112,11 +121,6 @@ function App() {
     
   }
 
-  //INITS
-  //inizializzazioni più complesse, così evito chiamate ad ogni re-render
-  useEffect(() => {   
-    NuovaPartita(); 
-  }, []);
 
   //HANDLE
   const handleAction = (azione) => {

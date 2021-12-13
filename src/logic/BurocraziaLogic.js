@@ -1,6 +1,7 @@
 
 import { Burocrazia } from "../entities/Burocrazia";
 
+/*eslint "no-extend-native": "off"*/ 
 
 Array.prototype.indiceAnnoCorrente = function() {
     for (let i = 0; i < this.length; i++) {

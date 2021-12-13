@@ -1,6 +1,8 @@
 
 import { Risorsa } from "../entities/Risorsa";
 
+/*eslint "no-extend-native": "off"*/ 
+
 export const GeneraRisorse = (dadi,risorse) => {
     if(typeof risorse === 'undefined' || risorse.length === 0){
 
