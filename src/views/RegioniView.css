@@ -52,15 +52,15 @@
 }
 
 .hex.costruita {
-    background-color: greenyellow;
+    background-color: var(--main-attiva);
 }
 
 .hex.costruita.produttiva {
-    background-color: rgb(77, 114, 22);
+    background-color: var(--main-usata);
 }
 
 .hex.smantellata {
-    background-color: darkgray;
+    background-color: var(--main-spenta);
 }
 
 .hex.da-smantellare {

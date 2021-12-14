@@ -1,14 +1,25 @@
 
-.testata-burocrazie {
-}
 
 .re-box-burocrazie {
     padding: 5px;
     font-size: small;
     margin-bottom: 3px;
 }
-
+/* 
 .re-box-burocrazie div:not(:first-child) div:not(:first-child):not(:last-child) {
     background-color: var(--main-fancy-color);
+    border: 1px solid white;
+} */
+
+.re-box-burocrazie .iniz {
+    background-color: var(--main-fancy-color);
+    border: 1px solid white;
+}
+.re-box-burocrazie .cost {
+    background-color: var(--main-uscite);
+    border: 1px solid white;
+}
+.re-box-burocrazie .entr {
+    background-color: var(--main-entrate);
     border: 1px solid white;
 }

@@ -4,6 +4,11 @@
 
 html {
   --main-fancy-color: #b7cd6c;
+  --main-spenta: darkgray;
+  --main-attiva: greenyellow;
+  --main-usata: rgb(77, 114, 22);
+  --main-entrate: greenyellow;
+  --main-uscite: rgb(255, 97, 97);
 }
 
 
