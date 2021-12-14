@@ -57,16 +57,18 @@ function App() {
         new Azione("btn-info", "Declassa una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Declassa(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
         new Azione("btn-info", "Dismetti una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Dismetti(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
         new Azione("btn-secondary", "Non fare nulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Passa(dadi,risorse,burocrazie,regioni,azioni,partita),[
-          FasiPartita.SELEZIONA_AZIONE_CENTRALI,
-          FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE,
-          FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_MIGL,
-          FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_MIGL,
-          FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_DECLASS,
-          FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_DECLASS,
-          FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE]),
+          FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
         new Azione("btn-info", "Produci energia", (dadi,risorse,burocrazie,regioni,azioni,partita) => Produci(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.PRODUZIONE]),
         new Azione("btn-secondary", "Termina la produzione", (dadi,risorse,burocrazie,regioni,azioni,partita) => PassaProduzione(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
         new Azione("btn-info", "Termina il turno", (dadi,risorse,burocrazie,regioni,azioni,partita) => FineTurno(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.FINE_TURNO]),
+        new Azione("btn btn-dark", "Annulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Annulla(dadi,risorse,burocrazie,regioni,azioni,partita),
+          [FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE, 
+            FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_MIGL, 
+            FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_DECLASS, 
+            FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE,
+            FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_DECLASS,
+            FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_MIGL/*,
+            FasiPartita.PRODUZIONE, FasiPartita.SCELTA_PRODUZIONE, FasiPartita.FINE_TURNO*/]),
       ]);
   }
 
@@ -119,7 +121,29 @@ function App() {
       setBurocrazie(burocrazie.nuovoTurno());
       setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
     }
-    
+  }
+  const Annulla = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+    switch(partita.Fase) {
+      case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE:
+      case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE:
+      case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_MIGL: 
+      case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_DECLASS: 
+        setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_AZIONE_CENTRALI));
+        break;
+      case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_DECLASS:
+      case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_MIGL:
+        regioni.forEach(r => {
+          r.IsDaSmantellare = false;
+        });
+        setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_AZIONE_CENTRALI));
+        break;
+      case FasiPartita.PRODUZIONE:
+      case FasiPartita.SCELTA_PRODUZIONE: 
+      case FasiPartita.FINE_TURNO:
+      default:
+        setPartita(partita.SegnalaAlert("Purtroppo non posso annullare questa mossa","alert-warning")); 
+        break;
+    }
   }
 
 

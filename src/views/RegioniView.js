@@ -9,7 +9,7 @@ function RegioniView(props) {
                 <div className="map">
                     {props.regioni.map((object, i) => 
                     <div key={object.X + "_" + object.Y} 
-                        className={"hex " + (object.IsCostruita ? "costruita " : "") + (object.IsSmantellata ? "smantellata " : "") + (object.IsProduttiva ? "produttiva " : "")} 
+                        className={"hex " + (object.IsCostruita ? "costruita " : "") + (object.IsSmantellata ? "smantellata " : "") + (object.IsProduttiva ? "produttiva " : "") + (object.IsDaSmantellare ? "da-smantellare " : "" ) } 
                         style={object.Style} onClick={() => props.handleRegione(object, props.partita, props.burocrazie, props.regioni)}>
                         <div className="costo">{object.Costo} M$</div>
                         <div className="consumi">{object.Consumi.map((object, i) => <div key={i}>{IconaFromId(object)}</div> )}</div>

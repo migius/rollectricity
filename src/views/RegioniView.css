@@ -63,3 +63,6 @@
     background-color: darkgray;
 }
 
+.hex.da-smantellare {
+    background: repeating-linear-gradient(299deg, greenyellow, greenyellow 10px, darkgray 10px, darkgray 20px);
+}

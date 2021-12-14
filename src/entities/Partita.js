@@ -33,7 +33,7 @@ export class Partita {
     get Messaggio() {
         switch(this.Fase) {
             case FasiPartita.INIZIO:
-                return "Buona partita";
+                return "In questo riquadro troverai le istruzioni per giocare";
             case FasiPartita.TIRA_DADI:
                 return "Per iniziare il turno tira i dadi";
             case FasiPartita.ASSEGNA_DADI:
