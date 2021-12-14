@@ -57,22 +57,25 @@ export class Partita {
             case FasiPartita.FINE_PARTITA:
                 return "La partita è finita";
             default:
-                return "TBD";
+                return "Qualcosa non ha funzionato... [Fase NULL]";
         }
     }
 
     ProssimaFase(fase) {    
-        let newP = new Partita(fase);
+        let newP = new Partita(this);
         newP.Fase = fase;
         return newP;
     }
 
     SegnalaAlert(testo, classe){
-        this.Alert = {
+        let newP = new Partita(this);
+        newP.Alert = {
             Testo: testo,
             Classe: classe
         };
-        return this;
+
+        setTimeout(this.ProssimaFase(this.fase), 1000);
+        return newP;
     }
 }
 

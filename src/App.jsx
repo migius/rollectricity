@@ -196,16 +196,20 @@ function App() {
         setPartita(partita.ProssimaFase(FasiPartita.SCELTA_PRODUZIONE));
         break;
       default:
-        console.log("nothing to do in this phase");
+        setPartita(partita.SegnalaAlert("Adesso non serve la mappa, leggi le istruzioni","alert-warning")); 
+        break;
     }
   }
 
 
   return (
     <div className="App row">
+      <div className={"alert sticky-top re-box d-xl-none " + (partita.Alert === undefined ? "d-none" : partita.Alert.Classe) } role="alert">
+        {partita.Alert === undefined ? "" : partita.Alert.Testo}
+      </div>
       <div className="col-12 col-xl">
         <AzioniView messaggio={partita.Messaggio} azioni={azioni} partita={partita} handleAction={handleAction} />
-        <div className={"alert re-box " + (partita.Alert === undefined ? "d-none" : partita.Alert.Classe) } role="alert">
+        <div className={"alert re-box d-none " + (partita.Alert === undefined ? "d-none" : " d-xl-block " + partita.Alert.Classe) } role="alert">
           {partita.Alert === undefined ? "" : partita.Alert.Testo}
         </div>
         <DadiView dadi={dadi} />
