@@ -30,12 +30,13 @@ function App() {
   const [partita, setPartita] = useState([]);
   
 
-
   //INITS
   //inizializzazioni più complesse, così evito chiamate ad ogni re-render
   useEffect(() => {
     NuovaPartita();
- },[]);
+  },[]);
+
+  //test modifica da replit
   
   //ACTIONS
   const NuovaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
