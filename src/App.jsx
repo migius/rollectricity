@@ -151,9 +151,9 @@ function App() {
 
 
   //HANDLE
-  /*const closeAlert = (partita) => {
+  const closeAlert = (partita) => {
     setPartita(partita.ProssimaFase(partita.Fase));
-  }*/
+  }
 
   const handleAction = (azione) => {
     console.log("handleAction " + azione.Testo);
@@ -238,7 +238,7 @@ function App() {
       <div className={"alert sticky-top re-box d-xl-none " + (partita.Alert === undefined ? "d-none" : partita.Alert.Classe) } role="alert">
         {partita.Alert === undefined ? "" : partita.Alert.Testo}
 
-        <div className="close-button"  ><FontAwesomeIcon icon={faTimesCircle} /></div>
+        <div className="close-button" onClick={() => closeAlert(partita)}  ><FontAwesomeIcon icon={faTimesCircle} /></div>
         
       </div>
       <div className="col-12 col-xl">

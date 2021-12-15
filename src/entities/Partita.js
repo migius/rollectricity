@@ -25,8 +25,10 @@ export class Partita {
                 Testo: "Buona partita",
                 Classe: "alert-success"
             };
+            this.Entrate = 0;
         } else {
             this.Fase = partita.Fase;
+            this.Entrate = partita.Entrate;
         }
     }
 
@@ -67,6 +69,12 @@ export class Partita {
         return newP;
     }
 
+    SegnaEntrate(entrate) {
+        let newP = new Partita(this);
+        newP.Entrate = entrate;
+        return newP;
+    }
+
     SegnalaAlert(testo, classe){
         let newP = new Partita(this);
         newP.Alert = {
@@ -74,7 +82,6 @@ export class Partita {
             Classe: classe
         };
 
-        setTimeout(this.ProssimaFase(this.fase), 1000);
         return newP;
     }
 }
