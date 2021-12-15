@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faWallet, faIndustry, faPiggyBank, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faWallet, faIndustry, /*faPiggyBank,*/ faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
 
 import './BurocrazieView.css';
 

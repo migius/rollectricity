@@ -17,6 +17,9 @@ import { GeneraRisorse } from './logic/RisorseLogic';
 import { InizializzaBurocrazie } from './logic/BurocraziaLogic';
 import { InizializzaRegioni } from './logic/RegioneLogic';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 /*eslint "react-hooks/exhaustive-deps": "off"*/ 
 
@@ -148,6 +151,10 @@ function App() {
 
 
   //HANDLE
+  /*const closeAlert = (partita) => {
+    setPartita(partita.ProssimaFase(partita.Fase));
+  }*/
+
   const handleAction = (azione) => {
     console.log("handleAction " + azione.Testo);
     azione.Effetto(dadi,risorse,burocrazie,regioni,azioni,partita,risorse);
@@ -230,6 +237,9 @@ function App() {
     <div className="App row">
       <div className={"alert sticky-top re-box d-xl-none " + (partita.Alert === undefined ? "d-none" : partita.Alert.Classe) } role="alert">
         {partita.Alert === undefined ? "" : partita.Alert.Testo}
+
+        <div className="close-button"  ><FontAwesomeIcon icon={faTimesCircle} /></div>
+        
       </div>
       <div className="col-12 col-xl">
         <AzioniView messaggio={partita.Messaggio} azioni={azioni} partita={partita} handleAction={handleAction} />
@@ -244,7 +254,7 @@ function App() {
       </div>
       <div className="col-12 col-xl">
         <BurocrazieView burocrazie={burocrazie} /> 
-        <div className="re-box h2">
+        <div className="re-box h2 pb-1">
           Punteggio: {burocrazie.punteggioAttuale()}
         </div>
       </div>

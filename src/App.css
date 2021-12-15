@@ -22,3 +22,7 @@ html {
 .col-map {
   min-width: 750px;
 }
+
+.close-button {
+  float: right;
+}
