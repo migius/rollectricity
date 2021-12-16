@@ -80,7 +80,13 @@ function App() {
     setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
   }
   const TiraDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
-    setDadi(Roll6D6()); 
+    if(partita.PartitaCasuale) {
+      setDadi(Roll6D6()); 
+    }
+    else {
+      setDadi(partita.TiraDadi());
+    }
+    partita.CodicePartitaCorrente += dadi.ToCodicePartita();
     setPartita(partita.ProssimaFase(FasiPartita.ASSEGNA_DADI));
   }
   const AssegnaDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
@@ -266,8 +272,13 @@ function App() {
       </div>
       <div className="col-12 col-xl">
         <BurocrazieView burocrazie={burocrazie} /> 
-        <div className="re-box h2 pb-1">
-          Punteggio: {burocrazie.punteggioAttuale()}
+        <div className="re-box">
+          <div className="h2 pb-1">
+            Punteggio: {burocrazie.punteggioAttuale()}
+          </div>
+          <div className="d-none">
+            Hai raggiunto il punteggio di {burocrazie.punteggioAttuale()} con la partita {partita.CodicePartitaCorrente}, passa questo codice ai tuoi amici per sfidarli alla stessa partita!
+          </div>
         </div>
       </div>
     

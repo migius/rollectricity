@@ -11,6 +11,6 @@ export const RollD6 = () => {
 }
 
 export const Roll6D6 = () => {
-    return [RollD6(), RollD6(), RollD6(), RollD6(), RollD6(), RollD6()];
+    return [RollD6(), RollD6(), RollD6(), RollD6(), RollD6(), RollD6()].sort();
 }
 

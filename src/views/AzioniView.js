@@ -1,6 +1,7 @@
 import React from 'react';
 import AzioneView from './AzioneView';
 
+import { FasiPartita } from '.././entities/Partita';
 import './AzioniView.css';
 
 function AzioniView(props) {
@@ -9,7 +10,7 @@ function AzioniView(props) {
                 <div className="col-12">
                     <div className="re-box azioni">
                         <div className=" col-12">{props.messaggio}</div>
-                        <input type="text" className="col-12" placeholder="Codice partita" onChange={(e) => props.handleChangeCodice(e.target.value, props.partita)} value={props.partita.CodicePartita} />
+                        <input type="text" className={"col-12 " + (props.partita.Fase === FasiPartita.INIZIO ? " " : "d-none") } placeholder="Codice partita" onChange={(e) => props.handleChangeCodice(e.target.value, props.partita)} value={props.partita.CodicePartita} />
                         {props.azioni.map((object, i) => <AzioneView key={i} azione={object} partita={props.partita} handleAction={props.handleAction} />)}
                     </div>
                 </div>

@@ -29,12 +29,14 @@ export class Partita {
             this.Turno = 0;
             this.PartitaCasuale = true;
             this.CodicePartita = "";
+            this.CodicePartitaCorrente = "";
         } else {
             this.Fase = partita.Fase;
             this.Entrate = partita.Entrate;
             this.Turno = partita.Turno;
             this.PartitaCasuale = partita.PartitaCasuale;
             this.CodicePartita = partita.CodicePartita;
+            this.CodicePartitaCorrente = partita.CodicePartitaCorrente;
         }
     }
 
@@ -70,6 +72,16 @@ export class Partita {
     }
 
     ProssimaFase(fase) {    
+        switch(this.Fase) {
+            case FasiPartita.INIZIO:
+                this.Turno = 0;
+                break;
+            case FasiPartita.TIRA_DADI:
+                this.Turno++;
+                break;
+            default:
+                break;
+        }
         let newP = new Partita(this);
         newP.Fase = fase;
         return newP;
@@ -84,12 +96,23 @@ export class Partita {
 
         return newP;
     }
+
+    TiraDadi() {
+        let tiri = this.CodicePartita.split('-');
+        console.log(tiri);
+        return parseInt(tiri[this.Turno],36).toString(7).split('').flatMap(x => [parseInt(x)]);
+    }
+    
 }
 
 
 /*eslint "no-extend-native": "off"*/ 
 
 String.prototype.IsAValidCodicePartita = function () {
-    return /^[1-6]{72}$/.test(this);
+    return /^[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-[a-z0-9]{3,4}-$/.test(this);
 }
 
+Array.prototype.ToCodicePartita = function () {
+    //converto da base 7 a base 36 per abbreviare
+    return parseInt(this.sort().join(''),7).toString(36) + "-";
+}
