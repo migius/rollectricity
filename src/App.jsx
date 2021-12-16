@@ -76,6 +76,7 @@ function App() {
   }
 
   const IniziaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+    console.log(partita);
     setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
   }
   const TiraDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
@@ -160,6 +161,17 @@ function App() {
     azione.Effetto(dadi,risorse,burocrazie,regioni,azioni,partita,risorse);
   }
 
+  const handleChangeCodice = (newValue, partita) => {
+    let newP = new Partita(partita);
+    newP.CodicePartita = newValue;
+    if(newValue.IsAValidCodicePartita()){ 
+      newP.PartitaCasuale = false;
+    } else {
+      newP.PartitaCasuale = true;
+    }
+    setPartita(newP);
+  }
+
   const handleRegione = (regioneSelezionata, partita, burocrazie, regioni) => {
     console.log(regioneSelezionata);
     
@@ -242,7 +254,7 @@ function App() {
         
       </div>
       <div className="col-12 col-xl">
-        <AzioniView messaggio={partita.Messaggio} azioni={azioni} partita={partita} handleAction={handleAction} />
+        <AzioniView messaggio={partita.Messaggio} azioni={azioni} partita={partita} handleAction={handleAction} handleChangeCodice={handleChangeCodice} />
         <div className={"alert re-box d-none " + (partita.Alert === undefined ? "d-none" : " d-xl-block " + partita.Alert.Classe) } role="alert">
           {partita.Alert === undefined ? "" : partita.Alert.Testo}
         </div>

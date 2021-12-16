@@ -26,9 +26,15 @@ export class Partita {
                 Classe: "alert-success"
             };
             this.Entrate = 0;
+            this.Turno = 0;
+            this.PartitaCasuale = true;
+            this.CodicePartita = "";
         } else {
             this.Fase = partita.Fase;
             this.Entrate = partita.Entrate;
+            this.Turno = partita.Turno;
+            this.PartitaCasuale = partita.PartitaCasuale;
+            this.CodicePartita = partita.CodicePartita;
         }
     }
 
@@ -69,12 +75,6 @@ export class Partita {
         return newP;
     }
 
-    SegnaEntrate(entrate) {
-        let newP = new Partita(this);
-        newP.Entrate = entrate;
-        return newP;
-    }
-
     SegnalaAlert(testo, classe){
         let newP = new Partita(this);
         newP.Alert = {
@@ -86,4 +86,10 @@ export class Partita {
     }
 }
 
+
+/*eslint "no-extend-native": "off"*/ 
+
+String.prototype.IsAValidCodicePartita = function () {
+    return /^[1-6]{72}$/.test(this);
+}
 
