@@ -50,8 +50,9 @@ function App() {
     setRegioni(InizializzaRegioni()); 
     let p = new Partita();
     let cp = get("cp");
-    if(cp !== undefined) {p.CodicePartita = cp;}
-    setPartita(p);
+    if(cp !== undefined) {
+      handleChangeCodice(cp, partita);
+    }
     setAzioni(
       [
         new Azione("btn-success", "Nuova partita", (dadi,risorse,burocrazie,regioni,azioni,partita) => NuovaPartita(dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.FINE_PARTITA]),
@@ -62,9 +63,9 @@ function App() {
         new Azione("btn-info", "Migliora una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Migliora(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
         new Azione("btn-info", "Declassa una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Declassa(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
         new Azione("btn-info", "Dismetti una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Dismetti(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
-        new Azione("btn-secondary", "Non fare nulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Passa(dadi,risorse,burocrazie,regioni,azioni,partita),[
-          FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
+        new Azione("btn-secondary", "Non fare nulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Passa(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
         new Azione("btn-info", "Produci energia", (dadi,risorse,burocrazie,regioni,azioni,partita) => Produci(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.PRODUZIONE]),
+        new Azione("btn-info", "Produci in tutte le centrali", (dadi,risorse,burocrazie,regioni,azioni,partita) => ProduciTutto(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
         new Azione("btn-secondary", "Termina la produzione", (dadi,risorse,burocrazie,regioni,azioni,partita) => PassaProduzione(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
         new Azione("btn-info", "Termina il turno", (dadi,risorse,burocrazie,regioni,azioni,partita) => FineTurno(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.FINE_TURNO]),
         new Azione("btn btn-dark", "Annulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Annulla(dadi,risorse,burocrazie,regioni,azioni,partita),
@@ -114,6 +115,13 @@ function App() {
   }
   const Produci = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setPartita(partita.ProssimaFase(FasiPartita.SCELTA_PRODUZIONE));
+  }
+  const ProduciTutto = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+    if(!risorse.risorseSufficientiTutteCentrali(regioni)){setPartita(partita.SegnalaAlert("Non hai risorese a sufficienza per avviare tutte le centrali, seleziona manualmente quelle da avviare e poi termina la produzione","alert-warning")); return;}
+    regioni.filter((r) => r.IsCostruita && !r.IsSmantellata && !r.IsProduttiva).forEach(element => {
+      handleRegione(element, dadi, risorse, burocrazie, regioni, azioni, partita);
+    });
+    PassaProduzione(dadi,risorse,burocrazie,regioni,azioni,partita);
   }
   const PassaProduzione = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setBurocrazie(burocrazie.segnaEntrate(0));
@@ -175,6 +183,8 @@ function App() {
     newP.CodicePartita = newValue;
     if(newValue.IsAValidCodicePartita()){ 
       newP.PartitaCasuale = false;
+      newP = newP.SegnalaAlert("Il codice partita inserito è valido, giocherai la partita legata a al codice inserito.","alert-success")
+      
     } else {
       newP.PartitaCasuale = true;
       if(newValue !== "") {
@@ -184,13 +194,13 @@ function App() {
     setPartita(newP);
   }
 
-  const handleRegione = (regioneSelezionata, partita, burocrazie, regioni) => {
+  const handleRegione = (regioneSelezionata, dadi, risorse, burocrazie, regioni, azioni, partita) => {
     console.log(regioneSelezionata);
     
     switch(partita.Fase) {
       case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE:
         if(regioneSelezionata.IsCostruita) {setPartita(partita.SegnalaAlert("Questa centrale è già stata costruita","alert-warning")); break;}
-        if(burocrazie.burocraziaAnnoCorrente().ValoreIniziale < regioneSelezionata.Costo) {setPartita(partita.SegnalaAlert("Non hai soldi a sufficienza per comprare questa centrale","alert-warning")); break;}
+        if(burocrazie.burocraziaAnnoCorrente().ValoreIniziale < regioneSelezionata.Costo) {setPartita(partita.SegnalaAlert("Non hai soldi a sufficienza per costruire questa centrale","alert-warning")); break;}
         setBurocrazie(burocrazie.segnaCosti(regioneSelezionata.Costo));
         regioneSelezionata.IsCostruita = true;
         setPartita(partita.ProssimaFase(FasiPartita.PRODUZIONE));
@@ -223,7 +233,7 @@ function App() {
           daPagare = Math.floor(regioneSelezionata.Costo/2);
         }
         
-        if(burocrazie.burocraziaAnnoCorrente().ValoreIniziale < daPagare) {setPartita(partita.SegnalaAlert("Non hai soldi a sufficienza per comprare questa centrale","alert-warning")); break;}
+        if(burocrazie.burocraziaAnnoCorrente().ValoreIniziale < daPagare) {setPartita(partita.SegnalaAlert("Non hai soldi a sufficienza per costruire questa centrale","alert-warning")); break;}
         
         setBurocrazie(burocrazie.segnaCosti(daPagare));
         regioneSelezionata.IsCostruita = true;
@@ -274,7 +284,7 @@ function App() {
         <RisorseView risorse={risorse} />
       </div>
       <div className="col-12 col-xl col-map">
-        <RegioniView regioni={regioni} handleRegione={handleRegione} partita={partita} burocrazie={burocrazie} />
+        <RegioniView dadi={dadi} risorse={risorse} regioni={regioni} azioni={azioni} handleRegione={handleRegione} partita={partita} burocrazie={burocrazie} />
       </div>
       <div className="col-12 col-xl">
         <BurocrazieView burocrazie={burocrazie} /> 
@@ -296,6 +306,7 @@ export default App;
 
 function get(name){
     var r = /[?&]([^=#]+)=([^&#]*)/g,p={},match;
+    // eslint-disable-next-line 
     while(match = r.exec(window.location)) p[match[1]] = match[2];
     return p[name];
 }

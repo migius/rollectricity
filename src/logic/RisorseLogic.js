@@ -89,6 +89,28 @@ Array.prototype.risorseSufficienti = function(regione) {
     return risorseSufficienti;
 };
 
+Array.prototype.risorseSufficientiTutteCentrali = function(regioni) {
+    let RisorseUsabili = new Array(this.length);
+
+    //faccio un array con il numero di disponibili per ogni Id
+    this.forEach(risorsa => {
+        RisorseUsabili[risorsa.Id] = risorsa.Usabili;
+    });
+
+    let risorseSufficienti = true;
+
+    regioni.filter((r) => r.IsCostruita && !r.IsSmantellata && !r.IsProduttiva).forEach(regione => {
+      regione.Consumi.forEach(risorsaDaUsare => {
+          RisorseUsabili[risorsaDaUsare]--;
+          if(RisorseUsabili[risorsaDaUsare]<0) {
+              risorseSufficienti = false;
+          }
+      });
+    });
+
+    return risorseSufficienti;
+};
+
 Array.prototype.consumaRisorse = function(regione) {
     regione.Consumi.forEach(risorsaDaUsare => {
         this.forEach(risorsa => {
