@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+//import { useTranslation, withTranslation, Trans } from 'react-i18next';
 
 import React, { useState, useEffect } from 'react';
 
@@ -32,6 +32,12 @@ function App() {
   const [regioni, setRegioni] = useState([]);
   const [azioni, setAzioni] = useState([]);
   const [partita, setPartita] = useState([]);
+
+  //LOCALIZATION
+  // const { t, i18n } = useTranslation();
+  // const changeLanguage = (lng) => {
+  //   i18n.changeLanguage(lng);
+  // };
   
   //INITS
   //inizializzazioni più complesse, così evito chiamate ad ogni re-render
@@ -48,7 +54,7 @@ function App() {
     setRisorse(GeneraRisorse());  
     setBurocrazie(InizializzaBurocrazie()); 
     setRegioni(InizializzaRegioni()); 
-    let p = new Partita();
+    setPartita(new Partita());
     let cp = get("cp");
     if(cp !== undefined) {
       handleChangeCodice(cp, partita);
@@ -78,20 +84,25 @@ function App() {
             FasiPartita.PRODUZIONE, FasiPartita.SCELTA_PRODUZIONE, FasiPartita.FINE_TURNO*/]),
       ]);
   }
-
   const IniziaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
     //console.log(partita);
+    
     setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
+    if(partita.ModalitaRapida){TiraDadi(dadi,risorse,burocrazie,regioni,azioni,partita);}
   }
   const TiraDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+    let dadiTmp;
     if(partita.PartitaCasuale) {
-      setDadi(Roll6D6()); 
+      dadiTmp = Roll6D6(); 
     }
     else {
-      setDadi(partita.TiraDadi());
+      dadiTmp = partita.TiraDadi();
     }
-    partita.CodicePartitaCorrente += dadi.ToCodicePartita();
+    partita.CodicePartitaCorrente += dadiTmp.ToCodicePartita();
+    setDadi(dadiTmp);
     setPartita(partita.ProssimaFase(FasiPartita.ASSEGNA_DADI));
+    
+    if(partita.ModalitaRapida){AssegnaDadi(dadiTmp,risorse,burocrazie,regioni,azioni,partita);}
   }
   const AssegnaDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setRisorse(GeneraRisorse(dadi,risorse));
@@ -288,11 +299,11 @@ function App() {
       </div>
       <div className="col-12 col-xl">
         <BurocrazieView burocrazie={burocrazie} /> 
-        <div className="re-box">
+        <div className="re-box punteggio-box fixed-bottom position-xl-static">
           <div className="h2 pb-1">
             Punteggio: {burocrazie.punteggioAttuale()}
           </div>
-          <div className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none")}>
+          <div className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none") }>
             Hai raggiunto il punteggio di {burocrazie.punteggioAttuale()} con la partita <a href={"/?cp=" + partita.CodicePartitaCorrente} rel="noreferrer" > {partita.CodicePartitaCorrente}</a>, passa questo codice (click destro copia link) ai tuoi amici per sfidarli alla stessa partita!
           </div>
         </div>

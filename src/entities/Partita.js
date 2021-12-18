@@ -30,6 +30,7 @@ export class Partita {
             this.PartitaCasuale = true;
             this.CodicePartita = "";
             this.CodicePartitaCorrente = "";
+            this.ModalitaRapida = true;
         } else {
             this.Fase = partita.Fase;
             this.Entrate = partita.Entrate;
@@ -37,6 +38,7 @@ export class Partita {
             this.PartitaCasuale = partita.PartitaCasuale;
             this.CodicePartita = partita.CodicePartita;
             this.CodicePartitaCorrente = partita.CodicePartitaCorrente;
+            this.ModalitaRapida = partita.ModalitaRapida;
         }
     }
 
