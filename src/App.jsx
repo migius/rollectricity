@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import React, { useState, useEffect } from 'react';
+
 import DadiView from './views/DadiView';
 import RisorseView from './views/RisorseView';
 import BurocrazieView from './views/BurocrazieView';
@@ -32,7 +33,6 @@ function App() {
   const [azioni, setAzioni] = useState([]);
   const [partita, setPartita] = useState([]);
   
-
   //INITS
   //inizializzazioni più complesse, così evito chiamate ad ogni re-render
   useEffect(() => {
@@ -48,7 +48,10 @@ function App() {
     setRisorse(GeneraRisorse());  
     setBurocrazie(InizializzaBurocrazie()); 
     setRegioni(InizializzaRegioni()); 
-    setPartita(new Partita());
+    let p = new Partita();
+    let cp = get("cp");
+    if(cp !== undefined) {p.CodicePartita = cp;}
+    setPartita(p);
     setAzioni(
       [
         new Azione("btn-success", "Nuova partita", (dadi,risorse,burocrazie,regioni,azioni,partita) => NuovaPartita(dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.FINE_PARTITA]),
@@ -76,7 +79,7 @@ function App() {
   }
 
   const IniziaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
-    console.log(partita);
+    //console.log(partita);
     setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
   }
   const TiraDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
@@ -174,6 +177,9 @@ function App() {
       newP.PartitaCasuale = false;
     } else {
       newP.PartitaCasuale = true;
+      if(newValue !== "") {
+        newP = newP.SegnalaAlert("Il codice partita inserito non è valido, cliccando Iniza partita si avvierà una partita casuale","alert-warning")
+      }
     }
     setPartita(newP);
   }
@@ -276,21 +282,22 @@ function App() {
           <div className="h2 pb-1">
             Punteggio: {burocrazie.punteggioAttuale()}
           </div>
-          <div className="d-none">
-            Hai raggiunto il punteggio di {burocrazie.punteggioAttuale()} con la partita {partita.CodicePartitaCorrente}, passa questo codice ai tuoi amici per sfidarli alla stessa partita!
+          <div className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none")}>
+            Hai raggiunto il punteggio di {burocrazie.punteggioAttuale()} con la partita <a href={"/?cp=" + partita.CodicePartitaCorrente} rel="noreferrer" > {partita.CodicePartitaCorrente}</a>, passa questo codice (click destro copia link) ai tuoi amici per sfidarli alla stessa partita!
           </div>
         </div>
       </div>
-    
     </div>
   );
 }
 
 export default App;
-//https://codesandbox.io/s/react-fiddle-cl4qg?file=/src/Components/Game/Game.js
 
 
-
-
+function get(name){
+    var r = /[?&]([^=#]+)=([^&#]*)/g,p={},match;
+    while(match = r.exec(window.location)) p[match[1]] = match[2];
+    return p[name];
+}
 
 
