@@ -21,8 +21,16 @@ import { InizializzaBurocrazie } from './logic/BurocraziaLogic';
 import { InizializzaRegioni } from './logic/RegioneLogic';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faCog, faCopyright } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faCog, faCopyright, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
+
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton
+} from "react-share";
 
 /*eslint "react-hooks/exhaustive-deps": "off"*/ 
 
@@ -289,7 +297,7 @@ function Game() {
   return (
     <div className="App row">
       <div className="header row">
-        <div className="col-12 h1">ROLLELECTRICITY</div>
+        <div className="col-12 h1">ROLLECTRICITY</div>
         <div className="col-12">{t("intro")}</div>
       </div>
       <div className={"alert sticky-top re-box d-xl-none " + (partita.Alert === undefined ? "d-none" : partita.Alert.Classe) } role="alert">
@@ -317,6 +325,15 @@ function Game() {
           </div>
           <div className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none") }>
             Hai raggiunto il punteggio di {burocrazie.punteggioAttuale()} con la partita <a href={"/?cp=" + partita.CodicePartitaCorrente} rel="noreferrer" > {partita.CodicePartitaCorrente}</a>, passa questo codice (click destro copia link) ai tuoi amici per sfidarli alla stessa partita!
+          </div>
+        </div>
+        <div className=" re-box">
+          <div className="row">
+            <EmailShareButton className="col" url="https://rollectricity.netlify.com/" subject="Gioca online a Rollectricity" body="Ciao, perché non provi questo gioco online: https://rollectricity.netlify.com/" ><FontAwesomeIcon icon={faEnvelope} /></EmailShareButton>
+            <FacebookShareButton className="col" url="https://rollectricity.netlify.com/" quote="Gioca online a Rollectricity" hashtag="rollectricity"><FontAwesomeIcon icon={['fab', 'facebook']} /></FacebookShareButton>
+            <TelegramShareButton className="col" url="https://rollectricity.netlify.com/" title="Gioca online a Rollectricity" ><FontAwesomeIcon icon={['fab', 'telegram']} /></TelegramShareButton>
+            <TwitterShareButton className="col" url="https://rollectricity.netlify.com/" title="Gioca online a Rollectricity" hashtag={["rollectricity"]} related={["brunimichele"]} ><FontAwesomeIcon icon={['fab', 'twitter']} via="brunimichele" /></TwitterShareButton>
+            <WhatsappShareButton className="col" url="https://rollectricity.netlify.com/" title="Gioca online a Rollectricity" ><FontAwesomeIcon icon={['fab', 'whatsapp']} /></WhatsappShareButton>
           </div>
         </div>
       </div>

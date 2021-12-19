@@ -5,6 +5,12 @@ import './i18n';
 import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
+library.add(fab);
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
