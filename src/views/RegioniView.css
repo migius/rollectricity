@@ -56,6 +56,10 @@
     background-color: var(--main-attiva);
 }
 
+.hex.costruibile {
+    background: repeating-linear-gradient(299deg, var(--main-attiva), var(--main-attiva) 2px, #ffff 4px, #ffff 15px);
+}
+
 .hex.costruita.produttiva {
     background-color: var(--main-usata);
 }
@@ -65,5 +69,5 @@
 }
 
 .hex.da-smantellare {
-    background: repeating-linear-gradient(299deg, greenyellow, greenyellow 10px, darkgray 10px, darkgray 20px);
+    background: repeating-linear-gradient(299deg, var(--main-attiva), var(--main-attiva) 10px, var(--main-spenta) 10px, var(--main-spenta) 20px);
 }

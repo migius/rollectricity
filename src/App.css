@@ -31,8 +31,14 @@ html {
   background-color: white;
 }
 
-.footer div a {
+.footer {
+  background-color: var(--main-fancy-color);
+}
+
+.footer a {
   cursor: pointer;
+  color: white;
+  text-decoration: none;
 }
 
 @media (max-width: 1200px) {

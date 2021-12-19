@@ -21,7 +21,7 @@ import { InizializzaBurocrazie } from './logic/BurocraziaLogic';
 import { InizializzaRegioni } from './logic/RegioneLogic';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faCog, faCopyright } from '@fortawesome/free-solid-svg-icons';
 
 
 /*eslint "react-hooks/exhaustive-deps": "off"*/ 
@@ -287,7 +287,7 @@ function Game() {
 
   return (
     <div className="App row">
-      <div className="header row re-box">
+      <div className="header row">
         <div className="col-12 h1">ROLLELECTRICITY</div>
         <div className="col-12">{t("intro")}</div>
       </div>
@@ -319,8 +319,9 @@ function Game() {
           </div>
         </div>
       </div>
+      <hr />
       <div className="footer row re-box p-2">
-      <Button className="col" onClick={() => handleModalShow("modal-options")} variant="outline-dark">{t("text.options")}</Button>
+      <a className="col" onClick={() => handleModalShow("modal-options")} variant="outline-dark"><FontAwesomeIcon icon={faCog} />  {t("text.options")}</a>
           <Modal show={modalState === "modal-options"} onHide={handleClose} fullscreen="xxl-down" size="lg">
             <Modal.Header closeButton>
               <Modal.Title>{t("text.options")}</Modal.Title>
@@ -332,7 +333,7 @@ function Game() {
             </Button>
           </Modal.Footer>
         </Modal>
-      <Button className="col" onClick={() => handleModalShow("modal-credits")} variant="outline-dark">{t("text.credits")}</Button>
+      <a className="col" onClick={() => handleModalShow("modal-credits")} variant="outline-dark"><FontAwesomeIcon icon={faCopyright} /> {t("text.credits")}</a>
           <Modal show={modalState === "modal-credits"} onHide={handleClose} fullscreen="xxl-down" size="lg">
             <Modal.Header closeButton>
               <Modal.Title>{t("text.credits")}</Modal.Title>
@@ -348,7 +349,7 @@ function Game() {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Button className="col" href="https://migio.altervista.org/lt/" target="_blank" variant="outline-dark">migio</Button>
+        <a className="col float-right" href="https://migio.altervista.org/lt/" target="_blank" variant="outline-dark">migio</a>
       </div>
     </div>
   );
