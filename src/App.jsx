@@ -45,6 +45,7 @@ function Game() {
   //inizializzazioni più complesse, così evito chiamate ad ogni re-render
   useEffect(() => {
     NuovaPartita(t);
+    changeLanguage("it");
   },[]);
 
   //test modifica da replit
@@ -321,7 +322,7 @@ function Game() {
       </div>
       <hr />
       <div className="footer row re-box p-2">
-      <a className="col" onClick={() => handleModalShow("modal-options")} variant="outline-dark"><FontAwesomeIcon icon={faCog} />  {t("text.options")}</a>
+      <p className="col" onClick={() => handleModalShow("modal-options")} ><FontAwesomeIcon icon={faCog} />  {t("text.options")}</p>
           <Modal show={modalState === "modal-options"} onHide={handleClose} fullscreen="xxl-down" size="lg">
             <Modal.Header closeButton>
               <Modal.Title>{t("text.options")}</Modal.Title>
@@ -333,15 +334,15 @@ function Game() {
             </Button>
           </Modal.Footer>
         </Modal>
-      <a className="col" onClick={() => handleModalShow("modal-credits")} variant="outline-dark"><FontAwesomeIcon icon={faCopyright} /> {t("text.credits")}</a>
+      <p className="col" onClick={() => handleModalShow("modal-credits")} ><FontAwesomeIcon icon={faCopyright} /> {t("text.credits")}</p>
           <Modal show={modalState === "modal-credits"} onHide={handleClose} fullscreen="xxl-down" size="lg">
             <Modal.Header closeButton>
               <Modal.Title>{t("text.credits")}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <p>Rollelectricity è un gioco di <a href="https://www.xmasgames.it/games/rollectricity" target="_blank">xmasGames</a>, sul loro sito puoi scaricare le regole e i file per giocare con carta e dadi</p>
-            <p>Per contribuire allo sviluppo (game design) del gioco puoi scrivere osservazioni e commenti a questo indirizzo: <a href="https://www.google.com/url?q=https%3A%2F%2Fboardgamegeek.com%2Fthread%2F2732502%2Fwip-rollectricity-9th-rw-game-design-contest-wsolo&sa=D&sntz=1&usg=AFQjCNEWbCU-250TJeO03LPRmWKt1DBAGA" target="_blank">thread sviluppo</a></p>
-            <p>Implementazione by migio, <a href="https://migio.altervista.org/contatti/" target="_blank">invia un feedback</a>. </p>
+            <p>Rollelectricity è un gioco di <a href="https://www.xmasgames.it/games/rollectricity" target="_blank" rel="noreferrer">xmasGames</a>, sul loro sito puoi scaricare le regole e i file per giocare con carta e dadi</p>
+            <p>Per contribuire allo sviluppo (game design) del gioco puoi scrivere osservazioni e commenti a questo indirizzo: <a href="https://boardgamegeek.com/thread/2732502/wip-rollectricity-9th-rw-game-design-contest-wsolo" target="_blank" rel="noreferrer">thread sviluppo</a></p>
+            <p>Implementazione by migio, <a href="https://migio.altervista.org/contatti/" target="_blank" rel="noreferrer">invia un feedback</a>. </p>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -349,7 +350,7 @@ function Game() {
             </Button>
           </Modal.Footer>
         </Modal>
-        <a className="col float-right" href="https://migio.altervista.org/lt/" target="_blank" variant="outline-dark">migio</a>
+        <a className="col float-right" href="https://migio.altervista.org/lt/" target="_blank" rel="noreferrer" variant="outline-dark">migio</a>
       </div>
     </div>
   );
