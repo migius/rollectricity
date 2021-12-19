@@ -155,8 +155,8 @@ function Game() {
     } else {
       setBurocrazie(burocrazie.nuovoTurno());
       setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
+      if(partita.ModalitaRapida){TiraDadi(t,dadi,risorse,burocrazie,regioni,azioni,partita);}
     }
-    if(partita.ModalitaRapida){TiraDadi(t,dadi,risorse,burocrazie,regioni,azioni,partita);}
   }
   const Annulla = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     switch(partita.Fase) {
