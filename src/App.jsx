@@ -1,8 +1,10 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import { useTranslation, withTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 
 import DadiView from './views/DadiView';
 import RisorseView from './views/RisorseView';
@@ -24,7 +26,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 /*eslint "react-hooks/exhaustive-deps": "off"*/ 
 
-function App() {
+function Game() {
   //STATE
   const [dadi, setDadi] = useState([]);
   const [risorse, setRisorse] = useState([]);
@@ -34,21 +36,21 @@ function App() {
   const [partita, setPartita] = useState([]);
 
   //LOCALIZATION
-  // const { t, i18n } = useTranslation();
-  // const changeLanguage = (lng) => {
-  //   i18n.changeLanguage(lng);
-  // };
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
   
   //INITS
   //inizializzazioni più complesse, così evito chiamate ad ogni re-render
   useEffect(() => {
-    NuovaPartita();
+    NuovaPartita(t);
   },[]);
 
   //test modifica da replit
   
   //ACTIONS
-  const NuovaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const NuovaPartita = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     console.log("NuovaPartita");
     setDadi([1,1,1,1,1,1]);
     setRisorse(GeneraRisorse());  
@@ -61,20 +63,20 @@ function App() {
     }
     setAzioni(
       [
-        new Azione("btn-success", "Nuova partita", (dadi,risorse,burocrazie,regioni,azioni,partita) => NuovaPartita(dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.FINE_PARTITA]),
-        new Azione("btn-success", "Inizia partita", (dadi,risorse,burocrazie,regioni,azioni,partita) => IniziaPartita(dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.INIZIO]),
-        new Azione("btn-info", "Tira i dadi", (dadi,risorse,burocrazie,regioni,azioni,partita) => TiraDadi(dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.TIRA_DADI]),
-        new Azione("btn-info", "Assegna i dadi", (dadi,risorse,burocrazie,regioni,azioni,partita) => AssegnaDadi(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.ASSEGNA_DADI]),
-        new Azione("btn-info", "Costruisci una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Costruisci(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
-        new Azione("btn-info", "Migliora una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Migliora(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
-        new Azione("btn-info", "Declassa una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Declassa(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
-        new Azione("btn-info", "Dismetti una centrale", (dadi,risorse,burocrazie,regioni,azioni,partita) => Dismetti(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
-        new Azione("btn-secondary", "Non fare nulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Passa(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
-        new Azione("btn-info", "Produci energia", (dadi,risorse,burocrazie,regioni,azioni,partita) => Produci(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.PRODUZIONE]),
-        new Azione("btn-info", "Produci in tutte le centrali", (dadi,risorse,burocrazie,regioni,azioni,partita) => ProduciTutto(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
-        new Azione("btn-secondary", "Termina la produzione", (dadi,risorse,burocrazie,regioni,azioni,partita) => PassaProduzione(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
-        new Azione("btn-info", "Termina il turno", (dadi,risorse,burocrazie,regioni,azioni,partita) => FineTurno(dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.FINE_TURNO]),
-        new Azione("btn btn-dark", "Annulla", (dadi,risorse,burocrazie,regioni,azioni,partita) => Annulla(dadi,risorse,burocrazie,regioni,azioni,partita),
+        new Azione("success", t("action.newGame"), (t,dadi,risorse,burocrazie,regioni,azioni,partita) => NuovaPartita(t,dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.FINE_PARTITA]),
+        new Azione("success",  t("action.startGame"), (t,dadi,risorse,burocrazie,regioni,azioni,partita) => IniziaPartita(t,dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.INIZIO]),
+        new Azione("info", "Tira i dadi", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => TiraDadi(t,dadi,risorse,burocrazie,regioni,azioni,partita), [FasiPartita.TIRA_DADI]),
+        new Azione("info", "Assegna i dadi", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => AssegnaDadi(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.ASSEGNA_DADI]),
+        new Azione("info", "Costruisci una centrale", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Costruisci(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
+        new Azione("info", "Migliora una centrale", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Migliora(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
+        new Azione("info", "Declassa una centrale", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Declassa(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
+        new Azione("info", "Dismetti una centrale", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Dismetti(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
+        new Azione("secondary", "Non fare nulla", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Passa(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SELEZIONA_AZIONE_CENTRALI]),
+        new Azione("info", "Produci energia", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Produci(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.PRODUZIONE]),
+        new Azione("info", "Produci in tutte le centrali", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => ProduciTutto(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
+        new Azione("secondary", "Termina la produzione", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => PassaProduzione(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.SCELTA_PRODUZIONE]),
+        new Azione("info", "Termina il turno", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => FineTurno(t,dadi,risorse,burocrazie,regioni,azioni,partita),[FasiPartita.FINE_TURNO]),
+        new Azione("dark", "Annulla", (t,dadi,risorse,burocrazie,regioni,azioni,partita) => Annulla(t,dadi,risorse,burocrazie,regioni,azioni,partita),
           [FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE, 
             FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_MIGL, 
             FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_DECLASS, 
@@ -84,13 +86,13 @@ function App() {
             FasiPartita.PRODUZIONE, FasiPartita.SCELTA_PRODUZIONE, FasiPartita.FINE_TURNO*/]),
       ]);
   }
-  const IniziaPartita = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const IniziaPartita = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     //console.log(partita);
     
     setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
-    if(partita.ModalitaRapida){TiraDadi(dadi,risorse,burocrazie,regioni,azioni,partita);}
+    if(partita.ModalitaRapida){TiraDadi(t,dadi,risorse,burocrazie,regioni,azioni,partita);}
   }
-  const TiraDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const TiraDadi = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     let dadiTmp;
     if(partita.PartitaCasuale) {
       dadiTmp = Roll6D6(); 
@@ -102,39 +104,39 @@ function App() {
     setDadi(dadiTmp);
     setPartita(partita.ProssimaFase(FasiPartita.ASSEGNA_DADI));
     
-    if(partita.ModalitaRapida){AssegnaDadi(dadiTmp,risorse,burocrazie,regioni,azioni,partita);}
+    if(partita.ModalitaRapida){AssegnaDadi(t,dadiTmp,risorse,burocrazie,regioni,azioni,partita);}
   }
-  const AssegnaDadi = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const AssegnaDadi = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setRisorse(GeneraRisorse(dadi,risorse));
     setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_AZIONE_CENTRALI));
   }
-  const Costruisci = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Costruisci = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE));
   }
-  const Migliora = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Migliora = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_MIGL));
   }
-  const Declassa = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Declassa = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_DECLASS));
   }
-  const Dismetti = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Dismetti = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setPartita(partita.ProssimaFase(FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE));
   }
-  const Passa = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Passa = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setBurocrazie(burocrazie.segnaCosti(0));
     setPartita(partita.ProssimaFase(FasiPartita.PRODUZIONE));
   }
-  const Produci = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Produci = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setPartita(partita.ProssimaFase(FasiPartita.SCELTA_PRODUZIONE));
   }
-  const ProduciTutto = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const ProduciTutto = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     if(!risorse.risorseSufficientiTutteCentrali(regioni)){setPartita(partita.SegnalaAlert("Non hai risorese a sufficienza per avviare tutte le centrali, seleziona manualmente quelle da avviare e poi termina la produzione","alert-warning")); return;}
     regioni.filter((r) => r.IsCostruita && !r.IsSmantellata && !r.IsProduttiva).forEach(element => {
-      handleRegione(element, dadi, risorse, burocrazie, regioni, azioni, partita);
+      handleRegione(element, dadi, risorse, burocrazie, regioni, azioni, partita,t);
     });
-    PassaProduzione(dadi,risorse,burocrazie,regioni,azioni,partita);
+    PassaProduzione(t,dadi,risorse,burocrazie,regioni,azioni,partita);
   }
-  const PassaProduzione = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const PassaProduzione = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     setBurocrazie(burocrazie.segnaEntrate(0));
     //le centrali che non hanno prodotto hanno un costo negativo
     regioni.filter((r) => r.IsCostruita && !r.IsSmantellata && !r.IsProduttiva).forEach(element => {
@@ -142,7 +144,7 @@ function App() {
     });
     setPartita(partita.ProssimaFase(FasiPartita.FINE_TURNO));
   }
-  const FineTurno = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const FineTurno = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     regioni.forEach(r => {
       r.IsProduttiva = false;
     });
@@ -153,8 +155,9 @@ function App() {
       setBurocrazie(burocrazie.nuovoTurno());
       setPartita(partita.ProssimaFase(FasiPartita.TIRA_DADI));
     }
+    if(partita.ModalitaRapida){TiraDadi(t,dadi,risorse,burocrazie,regioni,azioni,partita);}
   }
-  const Annulla = (dadi,risorse,burocrazie,regioni,azioni,partita) => {
+  const Annulla = (t,dadi,risorse,burocrazie,regioni,azioni,partita) => {
     switch(partita.Fase) {
       case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE:
       case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE:
@@ -186,7 +189,7 @@ function App() {
 
   const handleAction = (azione) => {
     console.log("handleAction " + azione.Testo);
-    azione.Effetto(dadi,risorse,burocrazie,regioni,azioni,partita,risorse);
+    azione.Effetto(t,dadi,risorse,burocrazie,regioni,azioni,partita);
   }
 
   const handleChangeCodice = (newValue, partita) => {
@@ -205,7 +208,7 @@ function App() {
     setPartita(newP);
   }
 
-  const handleRegione = (regioneSelezionata, dadi, risorse, burocrazie, regioni, azioni, partita) => {
+  const handleRegione = (regioneSelezionata, dadi, risorse, burocrazie, regioni, azioni, partita,t) => {
     console.log(regioneSelezionata);
     
     switch(partita.Fase) {
@@ -277,9 +280,17 @@ function App() {
     }
   }
 
+  //GESTIONE MODALS
+  const [modalState, setModalState] = useState(false);
+  const handleClose = () => setModalState(false);
+  const handleModalShow = (modal) => setModalState(modal);
 
   return (
     <div className="App row">
+      <div className="header row re-box">
+        <div className="col-12 h1">ROLLELECTRICITY</div>
+        <div className="col-12">{t("intro")}</div>
+      </div>
       <div className={"alert sticky-top re-box d-xl-none " + (partita.Alert === undefined ? "d-none" : partita.Alert.Classe) } role="alert">
         {partita.Alert === undefined ? "" : partita.Alert.Testo}
 
@@ -287,7 +298,7 @@ function App() {
         
       </div>
       <div className="col-12 col-xl">
-        <AzioniView messaggio={partita.Messaggio} azioni={azioni} partita={partita} handleAction={handleAction} handleChangeCodice={handleChangeCodice} />
+        <AzioniView messaggio={partita.Messaggio} azioni={azioni} partita={partita} handleAction={handleAction} handleChangeCodice={handleChangeCodice} t={t} />
         <div className={"alert re-box d-none " + (partita.Alert === undefined ? "d-none" : " d-xl-block " + partita.Alert.Classe) } role="alert">
           {partita.Alert === undefined ? "" : partita.Alert.Testo}
         </div>
@@ -301,19 +312,61 @@ function App() {
         <BurocrazieView burocrazie={burocrazie} /> 
         <div className="re-box punteggio-box fixed-bottom position-xl-static">
           <div className="h2 pb-1">
-            Punteggio: {burocrazie.punteggioAttuale()}
+            {t('text.points')} {burocrazie.punteggioAttuale()}
           </div>
           <div className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none") }>
             Hai raggiunto il punteggio di {burocrazie.punteggioAttuale()} con la partita <a href={"/?cp=" + partita.CodicePartitaCorrente} rel="noreferrer" > {partita.CodicePartitaCorrente}</a>, passa questo codice (click destro copia link) ai tuoi amici per sfidarli alla stessa partita!
           </div>
         </div>
       </div>
+      <div className="footer row re-box p-2">
+      <Button className="col" onClick={() => handleModalShow("modal-options")} variant="outline-dark">{t("text.options")}</Button>
+          <Modal show={modalState === "modal-options"} onHide={handleClose} fullscreen="xxl-down" size="lg">
+            <Modal.Header closeButton>
+              <Modal.Title>{t("text.options")}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Under construction...</Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              {t("text.close")}
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      <Button className="col" onClick={() => handleModalShow("modal-credits")} variant="outline-dark">{t("text.credits")}</Button>
+          <Modal show={modalState === "modal-credits"} onHide={handleClose} fullscreen="xxl-down" size="lg">
+            <Modal.Header closeButton>
+              <Modal.Title>{t("text.credits")}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <p>Rollelectricity è un gioco di <a href="https://www.xmasgames.it/games/rollectricity" target="_blank">xmasGames</a>, sul loro sito puoi scaricare le regole e i file per giocare con carta e dadi</p>
+            <p>Per contribuire allo sviluppo (game design) del gioco puoi scrivere osservazioni e commenti a questo indirizzo: <a href="https://www.google.com/url?q=https%3A%2F%2Fboardgamegeek.com%2Fthread%2F2732502%2Fwip-rollectricity-9th-rw-game-design-contest-wsolo&sa=D&sntz=1&usg=AFQjCNEWbCU-250TJeO03LPRmWKt1DBAGA" target="_blank">thread sviluppo</a></p>
+            <p>Implementazione by migio, <a href="https://migio.altervista.org/contatti/" target="_blank">invia un feedback</a>. </p>
+            </Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              {t("text.close")}
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Button className="col" href="https://migio.altervista.org/lt/" target="_blank" variant="outline-dark">migio</Button>
+      </div>
     </div>
   );
 }
 
-export default App;
+const Loader = () => (
+  <div className="App">
+    <div>loading...</div>
+  </div>
+);
 
+export default function App() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <Game />
+    </Suspense>
+  );
+}
 
 function get(name){
     var r = /[?&]([^=#]+)=([^&#]*)/g,p={},match;

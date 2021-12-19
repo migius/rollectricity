@@ -1,5 +1,13 @@
 {
+  "intro": "Costruisci la tua società di gestione delle centrali elettriche e diventa milionario convertendo le risorse naturali disponibili in elettricità, ottimizzando la transizione tra le fonti energetiche nel corso di 12 decadi dal 1930 al 2050.",
     "text": {
-      "points": "Punteggio: "
+      "points": "Punteggio: ",
+      "options": "Opzioni",
+      "close": "Chiudi",
+      "credits": "Credits"
+    },
+    "action": {
+      "newGame": "Nuova partita",
+      "startGame": "Inizia partita"
     }
 }

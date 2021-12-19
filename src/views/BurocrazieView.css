@@ -5,12 +5,6 @@
     font-size: small;
     margin-bottom: 3px;
 }
-
-@media (max-width: 1200px) {
-    .re-box-burocrazie {
-      margin-bottom: 5rem;
-    }
-  }
   
 /* 
 .re-box-burocrazie div:not(:first-child) div:not(:first-child):not(:last-child) {

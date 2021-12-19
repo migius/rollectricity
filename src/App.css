@@ -31,6 +31,16 @@ html {
   background-color: white;
 }
 
+.footer div a {
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .footer {
+      margin-bottom: 5rem;
+    }
+  }
+
 @media (min-width: 576px) {
   .position-sm-static {
     position: static !important;

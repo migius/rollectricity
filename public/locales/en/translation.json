@@ -1,5 +1,10 @@
 {
+  "prova": "PROVA OK",
     "text": {
-      "points": "Points: "
+      "points": "Punteggio: "
+    },
+    "action": {
+      "newGame": "Nuova partita",
+      "startGame": "Inizia partita"
     }
 }
