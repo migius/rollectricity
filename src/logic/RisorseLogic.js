@@ -61,12 +61,12 @@ const PulisciDadiRisorse = (risorse) => {
 export const InizializzaRisorse = () => {
     console.log("InizializzaRisorse");
     return [   
-        new Risorsa(0, "Carbone", 12),
-        new Risorsa(1, "Petrolio", 14),
-        new Risorsa(2, "Gas", 12),
-        new Risorsa(3, "Rifiuti", 12),
-        new Risorsa(4, "Uranio", 10),
-        new Risorsa(5, "Deuterio", 8), 
+        new Risorsa(0, "Risorsa.Carbone", 12),
+        new Risorsa(1, "Risorsa.Petrolio", 14),
+        new Risorsa(2, "Risorsa.Gas", 12),
+        new Risorsa(3, "Risorsa.Rifiuti", 12),
+        new Risorsa(4, "Risorsa.Uranio", 10),
+        new Risorsa(5, "Risorsa.Deuterio", 8), 
     ]
 }
 

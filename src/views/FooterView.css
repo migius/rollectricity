@@ -1,0 +1,23 @@
+
+@media (max-width: 1200px) {
+    .footer {
+      margin-bottom: 5rem;
+    }
+  }
+
+  
+.footer {
+  background-color: var(--main-fancy-color);
+}
+
+.footer a, .footer p {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+.footer a:hover, .footer p:hover {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}

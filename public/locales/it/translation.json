@@ -1,13 +1,80 @@
 {
   "intro": "Costruisci la tua società di gestione delle centrali elettriche e diventa milionario convertendo le risorse naturali disponibili in elettricità, ottimizzando la transizione tra le fonti energetiche nel corso di 12 decadi dal 1930 al 2050.",
-    "text": {
-      "points": "Punteggio: ",
-      "options": "Opzioni",
-      "close": "Chiudi",
-      "credits": "Credits"
-    },
-    "action": {
-      "newGame": "Nuova partita",
-      "startGame": "Inizia partita"
-    }
+  "Buona partita": "Buona partita!",
+  "text": {
+    "points": "Punteggio: ",
+    "options": "Opzioni",
+    "close": "Chiudi",
+    "credits": "Credits",
+    "game-code": "Codice partita",
+    "end-game-phrase": "Hai raggiunto il punteggio di {{punteggio}} con la partita <a href={{linkPartita}} rel='noreferrer' > {{codicePartita}}</a>, passa questo codice (click destro copia link) ai tuoi amici per sfidarli alla stessa partita!"
+  },
+  "action": {
+    "nuova-partita": "Nuova partita",
+    "inizia-gioco": "Inizia partita",
+    "tira-dadi": "Tira i dadi",
+    "assegna-dadi": "Assegna i dadi",
+    "costruisci": "Costruisci una centrale",
+    "migliora": "Migliora una centrale",
+    "declassa": "Declassa una centrale",
+    "dismetti": "Dismetti una centrale",
+    "non-fare-nulla": "Non fare nulla",
+    "produci": "Produci energia",
+    "produci-ovunque": "Produci in tutte le centrali",
+    "termina-prod": "Termina la produzione",
+    "termina-turno": "Termina il turno",
+    "undo": "Annulla"
+  },
+  "Risorsa": {
+    "Carbone": "Carbone",
+    "Petrolio": "Petrolio",
+    "Gas": "Gas",
+    "Rifiuti": "Rifiuti",
+    "Uranio": "Uranio",
+    "Deuterio": "Deuterio"
+  },
+  "istruzioni": {
+    "inizio": "In questo riquadro troverai le istruzioni per giocare",
+    "tira": "Per iniziare il turno tira i dadi",
+    "assegna": "Per determinare le risorse disponibili assegna i dadi",
+    "azione": "Scegli se vuoi fare un'azione di costruzione",
+    "costruire": "Scegli la centrale da costruire",
+    "dismettere": "Scegli la centrale da dismettere",
+    "produzione": "Avvia la fase di produzione",
+    "seleziona-produzione": "Seleziona le centrali per farle produrre, quelle non selezionate avranno una produzione negativa.",
+    "fine-turno": "L'anno volge al termine",
+    "fine-partita": "La partita è finita",
+    "fase-null": "Errore: fase NULL"
+  },
+  "alert": {
+    "codice-partita-ok": "Il codice partita inserito è valido, giocherai la partita legata a al codice inserito.",
+    "codice-partita-ko": "Il codice partita inserito non è valido, giocherai una partita casuale.",
+    "risorse-insufficienti": "Non ci sono abbastanza risorse",
+    "risorse-insufficienti-tutto": "Non hai risorese a sufficienza per avviare tutte le centrali, seleziona manualmente quelle da avviare e poi termina la produzione",
+    "undo-non-permesso": "Purtroppo non posso annullare questa mossa",
+    "gia-costruita": "Questa centrale è già stata costruita",
+    "soldi-insufficienti": "Non hai soldi a sufficienza per costruire questa centrale",
+    "soldi-insufficienti-sm": "Non hai soldi a sufficienza per smantellare questa centrale",
+    "non-costruita": "Questa centrale non è stata costruita",
+    "piu-dismissioni": "Trovate più di una centrale da dismettere... qualcosa non va",
+    "non-adiacente": "Questa centrale non è adiacente a quella da dismettere",
+    "costo-maggiore": "La nuova centrale deve avere un costo maggiore",
+    "costo-minore": "La nuova centrale deve avere un costo minore o uguale",
+    "smantellata": "Questa centrale è stata smantellata",
+    "gia-usata": "Questa centrale è già stata usata",
+    "no-mappa": "Adesso non serve la mappa, leggi le istruzioni"
+  },
+  "options": {
+    "language": "Lingua",
+    "fast-mode": "Modalità rapida"
+  },
+  "credits": {
+    "game-info": "Rollelectricity è un gioco di <a href='https://www.xmasgames.it/games/rollectricity' target='_blank' rel='noreferrer'>xmasGames</a>, sul loro sito puoi scaricare le regole e i file per giocare con carta e dadi.",
+    "game-develop": "Per contribuire allo sviluppo (game design) del gioco puoi scrivere osservazioni e commenti a questo indirizzo: <a href='https://boardgamegeek.com/thread/2732502/wip-rollectricity-9th-rw-game-design-contest-wsolo' target='_blank' rel='noreferrer'>thread sviluppo</a>.",
+    "send-feedback": "Implementazione by migio, <a href='https://migio.altervista.org/contatti/' target='_blank' rel='noreferrer'>invia un feedback</a>."
+  },
+  "share": {
+    "title": "Gioca online a Rollectricity",
+    "message": "Ciao, perché non provi questo gioco online: https://rollectricity.netlify.com/"
+  }
 }

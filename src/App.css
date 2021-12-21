@@ -31,27 +31,11 @@ html {
   background-color: white;
 }
 
-.footer {
-  background-color: var(--main-fancy-color);
+
+.social-box {
+  font-size: 1.5rem;
 }
 
-.footer a, .footer p {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-}
-.footer a:hover, .footer p:hover {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-@media (max-width: 1200px) {
-    .footer {
-      margin-bottom: 5rem;
-    }
-  }
 
 @media (min-width: 576px) {
   .position-sm-static {

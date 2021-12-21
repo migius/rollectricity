@@ -45,31 +45,31 @@ export class Partita {
     get Messaggio() {
         switch(this.Fase) {
             case FasiPartita.INIZIO:
-                return "In questo riquadro troverai le istruzioni per giocare";
+                return "istruzioni.inizio";
             case FasiPartita.TIRA_DADI:
-                return "Per iniziare il turno tira i dadi";
+                return "istruzioni.tira";
             case FasiPartita.ASSEGNA_DADI:
-                return "Per determinare le risorse disponibili assegna i dadi";
+                return "istruzioni.assegna";
             case FasiPartita.SELEZIONA_AZIONE_CENTRALI:
-                return "Scegli se vuoi fare un'azione di costruzione";
+                return "istruzioni.azione";
             case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE:
             case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_MIGL:
                 case FasiPartita.SELEZIONA_CENTRALE_DA_COSTRUIRE_DECLASS:
-                return "Scegli la centrale da costruire";
+                return "istruzioni.costruire";
             case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_MIGL:
             case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE_DECLASS:
             case FasiPartita.SELEZIONA_CENTRALE_DA_DISMETTERE:
-                return "Scegli la centrale da smantellare";
+                return "istruzioni.dismettere";
             case FasiPartita.PRODUZIONE:
-                return "Avvia la fase di produzione";
+                return "istruzioni.produzione";
             case FasiPartita.SCELTA_PRODUZIONE:
-                return "Seleziona le centrali per farle produrre, quelle non selezionate avranno una produzione negativa.";
+                return "istruzioni.seleziona-produzione";
             case FasiPartita.FINE_TURNO:
-                return "L'anno volge al termine";
+                return "istruzioni.fine-turno";
             case FasiPartita.FINE_PARTITA:
-                return "La partita è finita";
+                return "istruzioni.fine-partita";
             default:
-                return "Qualcosa non ha funzionato... [Fase NULL]";
+                return "istruzioni.fase-null";
         }
     }
 

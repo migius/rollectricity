@@ -1,10 +1,81 @@
 {
-  "prova": "PROVA OK",
-    "text": {
-      "points": "Punteggio: "
-    },
-    "action": {
-      "newGame": "Nuova partita",
-      "startGame": "Inizia partita"
-    }
+  "intro": "Build your power plant company and earn money by converting natural resources into electricity while managing the transition of energy sources over the course of 12 decades from 1930 to 2050.",
+  "Buona partita": "Good game!",
+  "text": {
+    "points": "Points: ",
+    "options": "Options",
+    "close": "Close",
+    "credits": "Credits",
+    "game-code": "Game code",
+    "end-game-phrase": "Your score is {{punteggio}} with the game <a href={{linkPartita}} rel='noreferrer' > {{codicePartita}}</a>, share this link for playing the same game!"
+  },
+  "action": {
+    "nuova-partita": "New game",
+    "inizia-gioco": "Start game",
+    "tira-dadi": "Roll dice",
+    "assegna-dadi": "Assign dice",
+    "costruisci": "Build",
+    "migliora": "Upgrade",
+    "declassa": "Downgrade",
+    "dismetti": "Dismiss",
+    "non-fare-nulla": "Do nothing",
+    "produci": "Produce energy",
+    "produci-ovunque": "Produce energy in all regions",
+    "termina-prod": "End Production",
+    "termina-turno": "End turn",
+    "undo": "Undo"
+  },
+  "Risorsa": {
+    "Carbone": "Coal",
+    "Petrolio": "Oil",
+    "Gas": "Gas",
+    "Rifiuti": "Waste",
+    "Uranio": "Uranium",
+    "Deuterio": "Deuterium"
+  },
+  "istruzioni": {
+    "inizio": "In this box, you will find instructions for playing the game",
+    "tira": "To start the turn, roll the dice",
+    "assegna": "To determine the resources available, he assigns the dice",
+    "azione": "Choose if you want to do a build action",
+    "costruire": "Choose the power plant to build",
+    "dismettere": "Choose the power plant to dismiss",
+    "produzione": "Start the production phase",
+    "seleziona-produzione": "Select the power plants to make them produce, the unselected ones will have a negative production",
+    "fine-turno": "The year is drawing to a close",
+    "fine-partita": "The game is ended",
+    "fase-null": "Error: fase NULL"
+  },
+  "alert": {
+    "codice-partita-ok": "The game code is valid",
+    "codice-partita-ko": "The game code is not valid",
+    "risorse-insufficienti": "There aren't enough resources",
+    "risorse-insufficienti-tutto": "There aren't enough resources to start all the plants, manually select the ones to start and then stop the production",
+    "undo-non-permesso": "Can't undo this move",
+    "gia-costruita": "This power plant has already been built",
+    "soldi-insufficienti": "There isn't enough money to build this power plant",
+    "soldi-insufficienti-sm": "There isn't enough money to dismiss this power plan",
+    "non-costruita": "This power plant hasn't already been built",
+    "piu-dismissioni": "Find more than one plant to be dismissed ... something is wrong",
+    "non-adiacente": "This plant is not adjacent to the one to be dismissed",
+    "costo-maggiore": "The new plant must have a higher cost",
+    "costo-minore": "The new plant must have a lower cost",
+    "smantellata": "This power plant hasn't already been dismissed",
+    "gia-usata": "This power plant hasn't already been used",
+    "no-mappa": "Now you don't need the map, read the instructions"
+    
+  },
+  "options": {
+    "language": "Language",
+    "fast-mode": "Fast mode"
+  },
+  "credits": {
+    "game-info": "Rollelectricity is a game by <a href='https://www.xmasgames.it/games/rollectricity' target='_blank' rel='noreferrer'>xmasGames</a>, on their website you can download the rules and files to play with cards and dice .",
+    "game-develop": "To contribute to the development (game design) of the game you can write observations and comments at this address: <a href='https://boardgamegeek.com/thread/2732502/wip-rollectricity-9th-rw-game-design-contest-wsolo' target='_blank' rel='noreferrer'>thread</a>.",
+    "send-feedback": "WebApp development by migio, <a href='https://migio.altervista.org/contatti/' target='_blank' rel='noreferrer'>send a feedback</a>."
+  },
+  "share": {
+    "title": "Play online Rollectricity",
+    "message": "Hi, try this online game: https://rollectricity.netlify.com/"
+  }
 }
