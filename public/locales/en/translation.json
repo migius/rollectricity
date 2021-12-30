@@ -60,7 +60,7 @@
     "non-adiacente": "This plant is not adjacent to the one to be dismissed",
     "costo-maggiore": "The new plant must have a higher cost",
     "costo-minore": "The new plant must have a lower cost",
-    "smantellata": "This power plant hasn't already been dismissed",
+    "smantellata": "This power plant has already been dismissed",
     "gia-usata": "This power plant hasn't already been used",
     "no-mappa": "Now you don't need the map, read the instructions"
     

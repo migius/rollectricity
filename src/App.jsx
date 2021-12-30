@@ -10,6 +10,7 @@ import BurocrazieView from './views/BurocrazieView';
 import RegioniView from './views/RegioniView'
 import AzioniView from './views/AzioniView';
 import FooterView from './views/FooterView';
+import ShareView from './views/ShareView';
 
 import { Azione } from "./entities/Azione";
 import { Partita, FasiPartita } from './entities/Partita';
@@ -20,16 +21,9 @@ import { InizializzaBurocrazie } from './logic/BurocraziaLogic';
 import { InizializzaRegioni } from './logic/RegioneLogic';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappShareButton
-} from "react-share";
 
 /*eslint "react-hooks/exhaustive-deps": "off"*/
 
@@ -333,15 +327,10 @@ function Game() {
           dangerouslySetInnerHTML={
                           {__html: t('text.end-game-phrase', {punteggio: burocrazie.punteggioAttuale(), linkPartita: "/?cp=" + partita.CodicePartitaCorrente, codicePartita: partita.CodicePartitaCorrente})}
                       } />
+          <ShareView className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none")} t={t} title="share.title" message="share.message" />
         </div>
         <div className="social-box re-box">
-          <div className="row">
-            <EmailShareButton className="col" url="https://rollectricity.netlify.com/" subject={t("share.title")} body={t("share.message")} ><FontAwesomeIcon icon={faEnvelope} /></EmailShareButton>
-            <FacebookShareButton className="col" url="https://rollectricity.netlify.com/" quote={t("share.title")} hashtag="rollectricity"><FontAwesomeIcon icon={['fab', 'facebook']} /></FacebookShareButton>
-            <TelegramShareButton className="col" url="https://rollectricity.netlify.com/" title={t("share.title")} ><FontAwesomeIcon icon={['fab', 'telegram']} /></TelegramShareButton>
-            <TwitterShareButton className="col" url="https://rollectricity.netlify.com/" title={t("share.title")} hashtag={["rollectricity"]} related={["brunimichele"]} ><FontAwesomeIcon icon={['fab', 'twitter']} via="brunimichele" /></TwitterShareButton>
-            <WhatsappShareButton className="col" url="https://rollectricity.netlify.com/" title={t("share.title")} ><FontAwesomeIcon icon={['fab', 'whatsapp']} /></WhatsappShareButton>
-          </div>
+          <ShareView t={t} title="share.title" message="share.message" />
         </div>
       </div>
       <hr />
