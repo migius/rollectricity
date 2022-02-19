@@ -11,6 +11,7 @@ import RegioniView from './views/RegioniView'
 import AzioniView from './views/AzioniView';
 import FooterView from './views/FooterView';
 import ShareView from './views/ShareView';
+import ClassificaView from './views/ClassificaView';
 
 import { Azione } from "./entities/Azione";
 import { Partita, FasiPartita } from './entities/Partita';
@@ -327,7 +328,7 @@ function Game() {
           dangerouslySetInnerHTML={
                           {__html: t('text.end-game-phrase', {punteggio: burocrazie.punteggioAttuale(), linkPartita: "/?cp=" + partita.CodicePartitaCorrente, codicePartita: partita.CodicePartitaCorrente})}
                       } />
-          <ShareView className={" " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none")} t={t} title="share.title" message="share.message" />
+          <ShareView className={"  d-none TEMPORANEO " + (partita.Fase === FasiPartita.FINE_PARTITA ? " " : "d-none")} t={t} title="share.title" message="share.message" />
         </div>
         <div className="social-box re-box">
           <ShareView t={t} title="share.title" message="share.message" />
@@ -335,6 +336,8 @@ function Game() {
       </div>
       <hr />
       <FooterView t={t} modalState={modalState} handleClose={handleClose} handleModalShow={handleModalShow} changeLanguage={changeLanguage} language={i18n.language} setModalitaRapida={setModalitaRapida} partita={partita} />
+
+      <ClassificaView />
     </div>
   );
 }
